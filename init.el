@@ -6,6 +6,10 @@
 (add-path "/mycode")
 (add-path "/color-theme")
 
+;; We'll inhibit the startup screen: this is especially useful when we double-click a
+;; file from the file explorer.
+(setq inhibit-startup-screen t)
+
 ;; Frame size
 (add-to-list 'default-frame-alist '(height . 30))
 (add-to-list 'default-frame-alist '(width . 85))
@@ -15,10 +19,10 @@
 (setq custom-file (concat init-file-dir "/custom.el"))
 (if (file-readable-p custom-file) (load custom-file))
 
-;; Just so tht we don't crowd this init file with many loads,
+;; Just so that we don't crowd this init file with many loads,
 ;; we keep all the loadable modules in this file separately
-(setq load-file (concat init-file-dir "/loadext.el"))
-(if (file-readable-p load-file) (load load-file))
+(setq ext-file (concat init-file-dir "/loadext.el"))
+(if (file-readable-p ext-file) (load ext-file))
 
 ;; Many packages come from MELPA, so we add the infra here
 (setq load-melpa-file (concat init-file-dir "/load-melpa.el"))
@@ -37,7 +41,11 @@
 
 ;; Finally, automatically show org file
 ;; Show this only if we do not have any other
-;; arguments on the command line
+;; arguments on the command line. All our orgsettings
+;; are separated in another file as this can really
+;; get crowded with timestamp formats, tags, etc.
+(setq org-settings-file (concat init-file-dir "/orgsettings.el"))
+(if (file-readable-p org-settings-file) (load org-settings-file))
 (setq plan-file (concat plansdir "/plan.org"))
 (if (file-readable-p plan-file)
  (if (eq (length command-line-args) 1)
