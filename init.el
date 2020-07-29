@@ -10,6 +10,16 @@
 ;; file from the file explorer.
 (setq inhibit-startup-screen t)
 
+;; We normally want the lock files to be created, because that is the only way
+;; emacs can know if you are double-editing a file (i.e., opening up another emacs
+;; for editing a file while you are already editing it in another emacs instance.
+;; However, such lock files are created with the name .#<filename> in the same
+;; directory as the file. This can become a problem when you use git, etc. - git
+;; will show these files as "added" in a directory. The best solution to the git-problem
+;; is to globally ignore files that have the pattern .#<filenname>.
+;; To disable creation of lock files completely, uncomment the following line:
+;; (setq create-lockfiles nil)
+
 ;; Frame size
 (add-to-list 'default-frame-alist '(height . 30))
 (add-to-list 'default-frame-alist '(width . 85))
@@ -30,7 +40,12 @@
 
 ;; We want all emacs back-up files to get into one directory
 ;; We basically want all of them to get into the backupsdir.
+(unless (file-exists-p backupsdir) (make-directory backupsdir))
 (setq backup-directory-alist `(("." . ,backupsdir)))
+
+;; Get our autosave files in a specific directory.
+(unless (file-exists-p autosavesdir) (make-directory autosavesdir))
+(setq auto-save-file-name-transforms `((".*" , autosavesdir t)))
 
 ;; And, since we now have all of the back-ups in one directory, we'll
 ;; also make that we will keep some old versions too.
