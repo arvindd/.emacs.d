@@ -8,11 +8,7 @@
      (color-theme-initialize)
         (color-theme-resolve)))
 
-;; Enable automatic encryption and decryption
-(require 'epa-file)
-(epa-file-enable)
-
-;; Specifically for org-mode, enable crypting individual entries
+;; Enable encryption for org-mode
 (require 'org-crypt)
 
 ;; Enable docker mode when a docker-file is opened.
