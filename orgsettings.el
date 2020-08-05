@@ -33,8 +33,14 @@
     ;;              Need to wait until it is done.
     ;; DONE: d - Done and closed
     ;; CANCELLED: c - Cancelled; no need to work on this.
+    ;; Additionally, we have the following note/timestamp-entry for state-transitions:
+    ;; TODO -> <ANY>: Log timestamp of when this was started
+    ;; <ANY> -> WAIT: Log timestamp of when this went into WAIT state
+    ;; <ANY> -> DONE: Log timestamp when entering the state
+    ;; <ANY> -> CANCELLED: Log notes and timestamp
     (setq org-todo-keywords
-	  '((sequence "TODO(t)" "TODAY(n)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+	  '((sequence "TODO(t)" "TODAY(n!)" "WAIT(w!)"
+		      "|" "DONE(d!)" "CANCELLED(c@)")))
 
     ;; How do we want to TODOs to be looking?
     (setq org-todo-keyword-faces
