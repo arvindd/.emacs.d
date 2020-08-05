@@ -8,6 +8,18 @@
     ;; Let RET follow links (like  C-c-o)
     (setq org-return-follows-link t)
 
+    ;; Nice to have shift also selecting. This means, we can use S-RIGHT
+    ;; S-LEFT, S-UP, S-DOWN for selecting text, and use C-* keys for
+    ;; regular org-mode functionalities
+    (setq org-support-shift-select t)
+
+    ;; Which is our capture file? This is where quick notes and todos
+    ;; will be captured into.
+    (setq org-default-notes-file (concat org-directory "roster.org"))
+
+    ;; Where do capture attachments get in?
+    (setq org-attach-id-dir (concat org-directory "attachments"))
+
     ;; Enable automatic crypting of org files
     ;; All entries with tag ":crypt:" will be encrypted
     ;; If you want to change this tag name, uncomment the following
@@ -48,6 +60,15 @@
 	    ("DONE" . (:foreground "green" :weight bold))
 	    ("CANCELLED" . (:foreground "blue" :weight bold))))
 
+    ;; Org capture templates
+    (setq roster-file org-default-notes-file)
+    (setq journal-file (concat org-directory "journal.org"))
+    (setq org-capture-templates
+	  '(("t" "Todo" entry (file+headline roster-file "Todos")
+	     "* TODO %u %?\n %i\n")
+	    ("j" "Journal" entry (file+datetree journal-file)
+	     "* [%<%H:%M>] %?\n %i\n")))
+    
     ;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Decrypt encrypted headlines
     (define-key org-mode-map (kbd "C-c b") 'org-decrypt-entry)
