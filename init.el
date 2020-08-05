@@ -54,15 +54,20 @@
   kept-old-versions 2
   version-control t)
 
-;; Finally, automatically show org file
-;; Show this only if we do not have any other
-;; arguments on the command line. All our orgsettings
-;; are separated in another file as this can really
+;; All our org-mode settings are separated in another file as this can really
 ;; get crowded with timestamp formats, tags, etc.
 (setq org-settings-file (concat init-file-dir "/orgsettings.el"))
 (if (file-readable-p org-settings-file) (load org-settings-file))
-;; Make all files in the plansdir also as agenda files
+
+;; Make all files (except the encrupted gpg files) in the plansdir also as agenda files
 (setq org-agenda-files (directory-files-recursively plansdir "\\.org$"))
+
+;; To also include encrypted gpg files as agenda files, comment the above line,
+;; and uncomment the following line.
+;; (setq org-agenda-files (directory-files-recursively plansdir "\\.\\(org\\|gpg\\)$"))
+
+;; Finally, automatically show org file. Show this only if we do not have any other
+;; arguments on the command line.
 (setq plan-file (concat plansdir "plan.org"))
 (setq org-directory plansdir)
 (if (file-readable-p plan-file)
