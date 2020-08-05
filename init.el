@@ -62,7 +62,7 @@
 (setq org-settings-file (concat init-file-dir "/orgsettings.el"))
 (if (file-readable-p org-settings-file) (load org-settings-file))
 ;; Make all files in the plansdir also as agenda files
-(setq org-agenda-files (directory-files-recursively plansdir))
+(setq org-agenda-files (directory-files-recursively plansdir "\\.org$"))
 (setq plan-file (concat plansdir "plan.org"))
 (if (file-readable-p plan-file)
  (if (eq (length command-line-args) 1)
