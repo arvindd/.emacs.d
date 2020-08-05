@@ -64,6 +64,7 @@
 ;; Make all files in the plansdir also as agenda files
 (setq org-agenda-files (directory-files-recursively plansdir "\\.org$"))
 (setq plan-file (concat plansdir "plan.org"))
+(setq org-directory plansdir)
 (if (file-readable-p plan-file)
  (if (eq (length command-line-args) 1)
    (setq initial-buffer-choice plan-file)))
