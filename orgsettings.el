@@ -18,7 +18,8 @@
     ;; and all agenda files - upto a max-level of 2 in the headings.
     (setq gpg-files (directory-files-recursively plansdir "\\.gpg$"))
     (setq org-refile-targets '((nil :maxlevel . 2) (gpg-files :maxlevel . 2) (org-agenda-files :maxlevel . 2)))
-    (setq org-refile-use-outline-path t)
+    (setq org-refile-use-outline-path 'file)
+    (setq org-refile-allow-creating-parent-nodes 'confirm)
 
     ;; Let RET follow links (like  C-c-o)
     (setq org-return-follows-link t)
