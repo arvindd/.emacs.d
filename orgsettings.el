@@ -17,7 +17,9 @@
     ;; moved around the files we create. We include the file in which refile was invoked
     ;; and all agenda files - upto a max-level of 2 in the headings.
     (setq gpg-files (directory-files-recursively plansdir "\\.gpg$"))
-    (setq org-refile-targets '((nil :maxlevel . 2) (gpg-files :maxlevel . 2) (org-agenda-files :maxlevel . 2)))
+    (setq org-refile-targets '((nil :maxlevel . 2)
+			       (gpg-files :maxlevel . 2)
+			       (org-agenda-files :maxlevel . 2)))
     (setq org-refile-use-outline-path 'file)
     (setq org-refile-allow-creating-parent-nodes 'confirm)
 
