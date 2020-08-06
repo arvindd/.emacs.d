@@ -59,13 +59,6 @@
 (setq org-settings-file (concat init-file-dir "/orgsettings.el"))
 (if (file-readable-p org-settings-file) (load org-settings-file))
 
-;; Make all files (except the encrupted gpg files) in the plansdir also as agenda files
-(setq org-agenda-files (directory-files-recursively plansdir "\\.org$"))
-
-;; To also include encrypted gpg files as agenda files, comment the above line,
-;; and uncomment the following line.
-;; (setq org-agenda-files (directory-files-recursively plansdir "\\.\\(org\\|gpg\\)$"))
-
 ;; Finally, automatically show org file. Show this only if we do not have any other
 ;; arguments on the command line.
 (setq plan-file (concat plansdir "plan.org"))
