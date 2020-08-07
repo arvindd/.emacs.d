@@ -8,6 +8,10 @@
     ;; Make all files (except the encrupted gpg files) in the plansdir also as agenda files
     (setq org-agenda-files (directory-files-recursively plansdir "\\.org$"))
 
+    ;; Enable visual line mode. Very helpful for capture buffers.
+    (setq visual-line-mode t)
+    (setq truncate-lines nil)
+
     ;; To also include encrypted gpg files as agenda files, comment the above line,
     ;; and uncomment the following line.
     ;; (setq org-agenda-files (directory-files-recursively plansdir "\\.\\(org\\|gpg\\)$"))
