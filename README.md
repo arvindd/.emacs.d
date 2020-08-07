@@ -9,7 +9,7 @@ This repository contains all my settings for emacs. It is structured so that it 
 
   `git clone https://github.com/arvindd/.emacs.d.git`
   
-  Home directory depends on the type of your system: on Windows, this is the `%USERPROFILE%` location, and on Unix/Linux, it is where `%HOME%` points to.
+  Home directory depends on the type of your system: on Windows, this is the `%USERPROFILE%` location, and on Unix/Linux, it is where `$HOME` points to.
 - **Move the file `.emacs` seen in the cloned directory to your home directory too**
 
 That is it. You should be able to use emacs already with this setup, with many settings already in place for you.
@@ -22,7 +22,7 @@ The file `.emacs` that is in the repo (and which needs to be moved to the home d
 Any customisations done via the emacs customisation interface go into the `custom.el` file.
 
 # Org-mode
-Well, most of the settings are directly to use the org-mode very effectively. All the org-mode settings are in the file `orgsettings.el`. On default, all the org-mode files are to be stored in the directory `~/.plans` - and this can be changed by changing the value of the variable `plansdir` in `.emacs`.
+Well, most of the settings are directly to use the org-mode very effectively. All the org-mode settings are in the file `orgsettings.el`. On default, all the org-mode files are to be stored in the directory `<emacshome>/.plans` - and this can be changed by changing the value of the variable `plansdir` in `.emacs`.
 
 To change the behaviour of orgmode, either change the settings in this file, or, override them by putting the settings in your own `.emacsuser` file in the home directory. The advantage of putting it in the `.emacsuser` is that you can update the repo for new settings, without the fear of overwriting your own settings.
 
@@ -35,3 +35,6 @@ To change the behaviour of orgmode, either change the settings in this file, or,
 
 # Dynamically created directories
 The autosaves of emacs get into `<emacshome>/.emacsautosaves` and all the emacs backups get into `<emacshome>/.emacssaves`. These directories are automatically created when you use emacs for the first time. By moving the autosaves and backups to this location, we will avoid having such files strewn in all our filesystem locations. What will still be created in the same directory as your opened file is the lock file created by emacs (starting with .#) to avoid multiple instances of emacs accessing the same file. You can switch off creation of such lock files by uncommenting the line that mentions so in `init.el`.
+
+# Comments in the setting files
+All the *.el files in the repo have lots of comments - so it is easy to change the settings as hinted by the comments. Feel free to make this your own!
