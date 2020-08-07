@@ -27,9 +27,11 @@ Well, most of the settings are directly to use the org-mode very effectively. Al
 To change the behaviour of orgmode, either change the settings in this file, or, override them by putting the settings in your own `.emacsuser` file in the home directory. The advantage of putting it in the `.emacsuser` is that you can update the repo for new settings, without the fear of overwriting your own settings.
 
 # Other files and directories
-extensions - Where you can drop other extensions you want. The file `loadext.el` is for adding all the auto-load statements for loading the dropped extensions.
-mycode - Any custom code you have developed yourself can get in here.
-elpa - All packages installed ia the `M-x package-install` goes into this directory.
+`extensions` - Where you can drop other extensions you want. The file `loadext.el` is for adding all the auto-load statements for loading the dropped extensions.
+
+`mycode` - Any custom code you have developed yourself can get in here.
+
+`elpa` - All packages installed ia the `M-x package-install` goes into this directory.
 
 # Dynamically created directories
-The autosaves of emacs get into `&lt;emacshome&gt;/.emacsautosaves` and all the emacs backups get into `&lt;emacshome&gt;/.emacssaves`. These directories are automatically created when you use emacs for the first time. By moving the autosaves and backups to this location, we will avoid having such files strewn in all our filesystem locations. What will still be created in the same directory as your opened file is the lock file created by emacs (starting with .#) to avoid multiple instances of emacs accessing the same file. You can switch off creation of such lock files by uncommenting the line that mentions so in `init.el`.
+The autosaves of emacs get into `<emacshome>/.emacsautosaves` and all the emacs backups get into `<emacshome>/.emacssaves`. These directories are automatically created when you use emacs for the first time. By moving the autosaves and backups to this location, we will avoid having such files strewn in all our filesystem locations. What will still be created in the same directory as your opened file is the lock file created by emacs (starting with .#) to avoid multiple instances of emacs accessing the same file. You can switch off creation of such lock files by uncommenting the line that mentions so in `init.el`.
