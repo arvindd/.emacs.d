@@ -81,11 +81,14 @@
     ;; Org capture templates
     (setq roster-file org-default-notes-file)
     (setq journal-file (concat org-directory "journal.org"))
+    (setq ideas-file (concat org-directory "ideas.org"))    
     (setq org-capture-templates
 	  '(("t" "Todo" entry (file+headline roster-file "Todos")
-	     "* TODO %u %?\n %i\n")
+	     "* TODO %u %?\n  %i\n")
+	    ("i" "Idea" entry (file+headline ideas-file "Ideas")
+	     "* %u %^{Enter title}\n%?\n  %i\n")
 	    ("j" "Journal" entry (file+olp+datetree journal-file)
-	     "* [%<%H:%M>] %?\n %i\n")))
+	     "* [%<%H:%M>] %?\n  %i\n")))
     
     ;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Decrypt encrypted headlines
