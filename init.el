@@ -41,6 +41,11 @@
 (setq load-melpa-file (concat init-file-dir "/load-melpa.el"))
 (if (file-readable-p load-melpa-file) (load load-melpa-file))
 
+;; All keybindings go into a separate file so that we do not
+;; crowd this file.
+(setq keybindings-file (concat init-file-dir "/keybindings.el"))
+(if (file-readable-p keybindings-file) (load keybindings-file))
+
 ;; We want all emacs back-up files to get into one directory
 ;; We basically want all of them to get into the backupsdir.
 (unless (file-exists-p backupsdir) (make-directory backupsdir))
