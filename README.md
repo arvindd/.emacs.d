@@ -21,6 +21,40 @@ The file `.emacs` that is in the repo (and which needs to be moved to the home d
 
 Any customisations done via the emacs customisation interface go into the `custom.el` file.
 
+# Additional package installation, and elpa configuration
+## One-time configuration
+The settings have been done so that all the emacs packages get into the directory `<emacshome>/.emacselpa`. For the packages to be installed, it is important that you have the proper GPG key for verifying the signatures of the package. Follow these steps to make it all work:
+
+- Start up emacs
+- Temperorily disable signature check:
+    
+	M-: (setq package-check-signature nil) RET
+	
+- Refresh package contents, and install the latest GNU GPG keys
+
+    M-x package-refresh-contents RET
+    M-x package-install RET gnu-elpa-keyring-update RET
+	
+- Revert back the checking of the package signatures
+
+   M-: (setq package-check-signature 'allow-unsigned) RET
+
+## Package installations
+Having done the above steps once after you clone this repo, there is no longer any need to do them again. Every other time you want to install a package, just use the normal elpa ways to install a package:
+
+   M-x package-install RET <package-to-install> RET
+   
+All installed packages get into the directory `<emacshome>/.emacselpa`. These are not affected anytime you update this repo because this directory is outside the repository. You are free to install whatever packages you need.
+
+All settings for package installation from ELPA sources are in the `load-melpa.el` file.
+
+## Re-installation of packages that were already installed before
+Every package that is installed gets into the `<emacshome>/.emacselpa` directory, and an entry to that effect gets into the custom.el file. If, for whatever reason you lose your `<emacshome>/.emacselpa` directory, and need to re-install the packages again, follow the one-time steps of installing the GNU GPG keys above, and then:
+
+   M-x package-install-selected-packages RET
+   
+This will re-install all packages back into the `<emacshome>/.emacselpa` directory.
+
 # Org-mode
 Well, most of the settings are directly to use the org-mode very effectively. All the org-mode settings are in the file `orgsettings.el`. On default, all the org-mode files are to be stored in the directory `<emacshome>/.plans` - and this can be changed by changing the value of the variable `plansdir` in `.emacs`.
 
