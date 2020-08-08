@@ -8,6 +8,7 @@
 ;; is the home directory. The only emacs initialisation file
 ;; there is the .emacs file.
 
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -36,6 +37,11 @@
 ;; will be changing that location - but for all files.
 ;; MOST IMPORTANT: End the directory name with a "/"
 (setq autosavesdir (concat emacshome "/.emacsautosaves/"))
+
+;; This is where all the elpa packages will be installed.
+;; We keep this outside the .emacs.d directory so that individuals
+;; can decide where they would want their packages should go in.
+(setq elpa-package-dir (concat emacshome "/.emacselpa/"))
 
 ;; Where you want to keep all the org-mode files
 (setq plansdir (concat emacshome "/.plans/"))

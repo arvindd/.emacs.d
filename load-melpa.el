@@ -16,4 +16,7 @@ There are two things you can do about this warning:
   ;; Melpa stable packages
   (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
   )
+
+(setq package-user-dir elpa-package-dir)
+
 (package-initialize)
