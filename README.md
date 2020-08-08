@@ -28,21 +28,21 @@ The settings have been done so that all the emacs packages get into the director
 - Start up emacs
 - Temperorily disable signature check:
     
-	M-: (setq package-check-signature nil) RET
+        M-: (setq package-check-signature nil) RET
 	
 - Refresh package contents, and install the latest GNU GPG keys
 
-    M-x package-refresh-contents RET
-    M-x package-install RET gnu-elpa-keyring-update RET
+        M-x package-refresh-contents RET
+        M-x package-install RET gnu-elpa-keyring-update RET
 	
 - Revert back the checking of the package signatures
 
-   M-: (setq package-check-signature 'allow-unsigned) RET
+        M-: (setq package-check-signature 'allow-unsigned) RET
 
 ## Package installations
 Having done the above steps once after you clone this repo, there is no longer any need to do them again. Every other time you want to install a package, just use the normal elpa ways to install a package:
 
-   M-x package-install RET <package-to-install> RET
+    M-x package-install RET <package-to-install> RET
    
 All installed packages get into the directory `<emacshome>/.emacselpa`. These are not affected anytime you update this repo because this directory is outside the repository. You are free to install whatever packages you need.
 
@@ -51,7 +51,7 @@ All settings for package installation from ELPA sources are in the `load-melpa.e
 ## Re-installation of packages that were already installed before
 Every package that is installed gets into the `<emacshome>/.emacselpa` directory, and an entry to that effect gets into the custom.el file. If, for whatever reason you lose your `<emacshome>/.emacselpa` directory, and need to re-install the packages again, follow the one-time steps of installing the GNU GPG keys above, and then:
 
-   M-x package-install-selected-packages RET
+    M-x package-install-selected-packages RET
    
 This will re-install all packages back into the `<emacshome>/.emacselpa` directory.
 
