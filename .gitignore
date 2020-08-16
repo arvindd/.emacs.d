@@ -1,4 +1,5 @@
 auto-save-list/**
 bookmarks
 server/**
+org-clock-save.el
 custom.el

@@ -7,14 +7,17 @@
   (lambda ()
     ;; Make all files (except the encrupted gpg files) in the plansdir also as agenda files
     (setq org-agenda-files (directory-files-recursively plansdir "\\.org$"))
+    ;; To also include encrypted gpg files as agenda files, comment the above line,
+    ;; and uncomment the following line.
+    ;; (setq org-agenda-files (directory-files-recursively plansdir "\\.\\(org\\|gpg\\)$"))
 
     ;; Enable visual line mode. Very helpful for capture buffers.
     (setq visual-line-mode t)
     (setq truncate-lines nil)
 
-    ;; To also include encrypted gpg files as agenda files, comment the above line,
-    ;; and uncomment the following line.
-    ;; (setq org-agenda-files (directory-files-recursively plansdir "\\.\\(org\\|gpg\\)$"))
+    ;; Keep all clock times across emacs sessions
+    (setq org-clock-persist 'history)
+    (org-clock-persistence-insinuate)
 
     ;; In which files do we want to refile entries?
     ;; We allow all agenda files to be refile targets too so that entries can be freely
@@ -26,6 +29,10 @@
 			       (org-agenda-files :maxlevel . 2)))
     (setq org-refile-use-outline-path 'file)
     (setq org-refile-allow-creating-parent-nodes 'confirm)
+
+    ;; We want the mini-buffer to accept spaces. This is useful in
+    ;; inserting links and completions in refiles.
+    (define-key minibuffer-local-completion-map (kbd "SPC") 'self-insert-command)
 
     ;; Let RET follow links (like  C-c-o)
     (setq org-return-follows-link t)
