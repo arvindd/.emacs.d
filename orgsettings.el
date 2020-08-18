@@ -75,12 +75,12 @@
     ;; DONE: d - Done and closed
     ;; CANCELLED: c - Cancelled; no need to work on this.
     ;; Additionally, we have the following note/timestamp-entry for state-transitions:
-    ;; TODO -> <ANY>: Log timestamp of when this was started
-    ;; <ANY> -> WAIT: Log timestamp of when this went into WAIT state
+    ;; -> <TODO>: Log timestamp of when this was started
+    ;; <ANY> -> WAIT: Log notes and timestamp of when this went into WAIT state
     ;; <ANY> -> DONE: Log timestamp when entering the state
     ;; <ANY> -> CANCELLED: Log notes and timestamp
     (setq org-todo-keywords
-	  '((sequence "TODO(t)" "TODAY(n!)" "WAIT(w!)"
+	  '((sequence "TODO(t!)" "TODAY(n!)" "WAIT(w@)"
 		      "|" "DONE(d!)" "CANCELLED(c@)")))
 
     ;; How do we want to TODOs to be looking?
@@ -95,7 +95,7 @@
     (setq ideas-file (concat org-directory "ideas.org"))    
     (setq org-capture-templates
 	  '(("t" "Todo" entry (file+headline roster-file "Todos")
-	     "* TODO %u %?\n  %i\n")
+	     "* TODO %?\n- State \"TODO\"                         %U\n %i\n")
 	    ("i" "Idea" entry (file+headline ideas-file "Ideas")
 	     "* %u %^{Enter title}\n%?\n  %i\n")
 	    ("j" "Journal" entry (file+olp+datetree journal-file)
