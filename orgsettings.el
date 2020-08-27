@@ -93,6 +93,16 @@
 	    ("DONE" . (:foreground "green" :weight bold))
 	    ("CANCELLED" . (:foreground "blue" :weight bold))))
 
+    ;; Our custom agenda view: we only want those in TODO or WAIT state
+    ;; when we ask for today's agenda. Our key for this agenda dispatcher is 'n'.
+    ;; If we want all todos, we have the default 't' anyways.
+    (setq org-agenda-custom-commands
+       '(("n" "Agenda and all TODOs"
+	 ((agenda "" nil)
+	  (todo "TODAY" nil)
+	  (todo "WAIT" nil))
+	 nil)))
+    
     ;; Org capture templates
     (setq roster-file org-default-notes-file)
     (setq journal-file (concat org-directory "journal.org"))
