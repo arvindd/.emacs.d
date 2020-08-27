@@ -21,6 +21,8 @@ The file `.emacs` that is in the repo (and which needs to be moved to the home d
 
 Any customisations done via the emacs customisation interface go into the `custom.el` file.
 
+Note that all the keybindings (except those for org-mode) are put in one place: `keybindings.el`. All the org-mode keybindings are put along with other org-mode settings (see below).
+
 # Additional package installation, and elpa configuration
 ## One-time configuration
 The settings have been done so that all the emacs packages get into the directory `<emacshome>/.emacselpa`. For the packages to be installed, it is important that you have the proper GPG key for verifying the signatures of the package. Follow these steps to make it all work:
@@ -59,6 +61,13 @@ This will re-install all packages back into the `<emacshome>/.emacselpa` directo
 Well, most of the settings are directly to use the org-mode very effectively. All the org-mode settings are in the file `orgsettings.el`. On default, all the org-mode files are to be stored in the directory `<emacshome>/.plans` - and this can be changed by changing the value of the variable `plansdir` in `.emacs`.
 
 To change the behaviour of orgmode, either change the settings in this file, or, override them by putting the settings in your own `.emacsuser` file in the home directory. The advantage of putting it in the `.emacsuser` is that you can update the repo for new settings, without the fear of overwriting your own settings.
+
+# Calendar and diary
+All the calendar and diary settings get into `caldiary.el`.
+
+We have some customisations for the calendar and diary too. Most importantly, for the calendar (which in our configuration is bound to `c-c v`, as expected, in `keybindings.el`), week numbers are displayed. The week also starts from Monday, with the weekends put at the end.
+
+Diary is bound to `c-c d` - again, done in `keybindings.el`. Diary file is searched in the same directory as your plans: on default, the file ~/.plans/diary is used. This location can be changed in `init.el`. The first time diary is used, this file needs to be created. 
 
 # Other files and directories
 `extensions` - Where you can drop other extensions you want. The file `loadext.el` is for adding all the auto-load statements for loading the dropped extensions.

@@ -3,3 +3,5 @@
 
 ;; Enable magit
 (define-key global-map (kbd "C-x g") 'magit-status)
+(define-key global-map (kbd "C-c v") 'calendar)
+(define-key global-map (kbd "C-c d") 'diary)

@@ -19,6 +19,10 @@
     (setq org-clock-persist 'history)
     (org-clock-persistence-insinuate)
 
+    ;; Emacs diary integration: put all diary entries also in the agenda
+    (setq diary-file (concat org-directory "diary"))
+    (setq org-agenda-include-diary t)
+
     ;; In which files do we want to refile entries?
     ;; We allow all agenda files to be refile targets too so that entries can be freely
     ;; moved around the files we create. We include the file in which refile was invoked
