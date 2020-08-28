@@ -19,9 +19,9 @@
     (setq org-clock-persist 'history)
     (org-clock-persistence-insinuate)
 
-    ;; Emacs diary integration: put all diary entries also in the agenda
-    (setq diary-file (concat org-directory "diary"))
-    (setq org-agenda-include-diary t)
+    ;; Emacs diary integration: uncomment the following to put all diary entries also
+    ;; in the agenda
+    ;; (setq org-agenda-include-diary t)
 
     ;; In which files do we want to refile entries?
     ;; We allow all agenda files to be refile targets too so that entries can be freely
@@ -86,22 +86,24 @@
     ;; <ANY> -> CANCELLED: Log notes and timestamp
     (setq org-todo-keywords
 	  '((sequence "TODO(t!)" "TODAY(n!)" "WAIT(w@)"
-		      "|" "DONE(d!)" "CANCELLED(c@)")))
+		      "|" "DONE(d!)" "CANCELLED(c@)" "DEFERRED(f@)")))
 
     ;; How do we want to TODOs to be looking?
     (setq org-todo-keyword-faces
 	  '(("TODO" . org-warning) ("TODAY" . "yellow") ("WAITING" . "red")
 	    ("DONE" . (:foreground "green" :weight bold))
-	    ("CANCELLED" . (:foreground "blue" :weight bold))))
+	    ("CANCELLED" . (:foreground "blue" :weight bold))
+	    ("DEFERRED" . (:foreground "magenta" :weight bold))))
 
     ;; Our custom agenda view: we only want those in TODO or WAIT state
-    ;; when we ask for today's agenda. Our key for this agenda dispatcher is 'n'.
-    ;; If we want all todos, we have the default 't' anyways.
+    ;; when we ask for today's agenda.
     (setq org-agenda-custom-commands
-       '(("n" "Agenda and all TODOs"
+       '(("q" "Quick view of agenda and incomplete todos"
 	 ((agenda "" nil)
 	  (todo "TODAY" nil)
-	  (todo "WAIT" nil))
+	  (todo "WAIT" nil)
+	  (todo "DEFERRED" nil)
+	  (todo "TODO" nil))	 	 
 	 nil)))
     
     ;; Org capture templates

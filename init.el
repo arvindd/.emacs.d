@@ -62,14 +62,14 @@
   kept-old-versions 2
   version-control t)
 
-;; All Calendar and Dairy settings go into this file
-(setq caldiary-settings-file (concat init-file-dir "/caldiary.el"))
-(if (file-readable-p caldiary-settings-file) (load caldiary-settings-file))
-
 ;; All our org-mode settings are separated in another file as this can really
 ;; get crowded with timestamp formats, tags, etc.
 (setq org-settings-file (concat init-file-dir "/orgsettings.el"))
 (if (file-readable-p org-settings-file) (load org-settings-file))
+
+;; All Calendar and Dairy settings go into this file
+(setq caldiary-settings-file (concat init-file-dir "/caldiary.el"))
+(if (file-readable-p caldiary-settings-file) (load caldiary-settings-file))
 
 ;; Finally, automatically show org file. Show this only if we do not have any other
 ;; arguments on the command line.

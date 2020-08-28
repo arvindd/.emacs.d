@@ -3,6 +3,12 @@
 ;; All settings for calendar and diary go here.
 ;;
 
+;; Where do all the diary entries go?
+(setq diary-file (concat plansdir "diary"))
+
+;; We would like to mark calendar days where there are diary entries.
+(setq calendar-mark-diary-entries-flag t)
+
 ;; Add week numbers in the calendar mode
 (copy-face font-lock-constant-face 'calendar-iso-week-face)
 (set-face-attribute 'calendar-iso-week-face nil
