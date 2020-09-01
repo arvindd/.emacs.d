@@ -71,26 +71,39 @@
     (setq org-crypt-key nil)
 
     ;; Todo keyword sequences
-    ;; TODO: t - Marked to be done some day
+    ;; TODO: t - Initial state: when a todo is captured and not yet processed.
+    ;; INPROGRESS: p - Started working on. We use this only for "top-level" todos
+    ;;                 that have some next actions defined - these will be shown in the
+    ;;                 agenda quick-view (see below) - but cannot be changed to "DONE"
+    ;;                 unless all the TODOs in the levels below this are DONE.
+    ;; NEXT: n - Next action defined for a specific TODO. Typically is defined at a
+    ;;           level below a main TODO (which gets to the INPROGRESS state). Sometimes,
+    ;;           small TODOS (which are top-level) are directly made as NEXT actions. 
     ;; TODAY: y - Marked to be worked-on today. Could be also the state of task that
     ;;            was marked to be worked-on some day prior to today, but to be continued
-    ;;            to be worked on today.
+    ;;            to be worked on today. Todos that were NEXT get into this state when you
+    ;;            decide to work on them.
     ;; WAITING: w - Task that is delegated to somebody / blocking on something.
     ;;              Need to wait until it is done.
     ;; DONE: d - Done and closed
     ;; CANCELLED: c - Cancelled; no need to work on this.
+    ;; DEFFERED: f - Todos that are not closed, but are deferred to someday in the future.
     ;; Additionally, we have the following note/timestamp-entry for state-transitions:
     ;; -> <TODO>: Log timestamp of when this was started
     ;; <ANY> -> WAIT: Log notes and timestamp of when this went into WAIT state
     ;; <ANY> -> DONE: Log timestamp when entering the state
     ;; <ANY> -> CANCELLED: Log notes and timestamp
     (setq org-todo-keywords
-	  '((sequence "TODO(t!)" "TODAY(n!)" "WAIT(w@)"
+	  '((sequence "TODO(t!)" "INPROGRESS(p!)" "NEXT(n!)" "TODAY(y!)" "WAIT(w@)"
 		      "|" "DONE(d!)" "CANCELLED(c@)" "DEFERRED(f@)")))
 
     ;; How do we want to TODOs to be looking?
     (setq org-todo-keyword-faces
-	  '(("TODO" . org-warning) ("TODAY" . "yellow") ("WAITING" . "red")
+	  '(("TODO" . org-warning)
+	    ("INPROGRESS" . "gray")	    
+	    ("NEXT" . "cyan")
+	    ("TODAY" . "yellow")
+	    ("WAITING" . "red")
 	    ("DONE" . (:foreground "green" :weight bold))
 	    ("CANCELLED" . (:foreground "blue" :weight bold))
 	    ("DEFERRED" . (:foreground "magenta" :weight bold))))
@@ -99,11 +112,13 @@
     ;; when we ask for today's agenda.
     (setq org-agenda-custom-commands
        '(("q" "Quick view of agenda and incomplete todos"
-	 ((agenda "" nil)
-	  (todo "TODAY" nil)
-	  (todo "WAIT" nil)
-	  (todo "DEFERRED" nil)
-	  (todo "TODO" nil))	 	 
+	  ((agenda "" nil)
+	   (todo "NEXT" nil)
+	   (todo "TODAY" nil)
+	   (todo "WAIT" nil)
+	   (todo "DEFERRED" nil)
+	   (todo "INPROGRESS" nil)	   
+	   (todo "TODO" nil))	 	 
 	 nil)))
     
     ;; Org capture templates
