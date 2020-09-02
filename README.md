@@ -57,7 +57,28 @@ Every package that is installed gets into the `<emacshome>/.emacselpa` directory
    
 This will re-install all packages back into the `<emacshome>/.emacselpa` directory.
 
-# Org-mode
+# Org-mode Todo workflows
+Of course, a lot of this section is very subjective: the workflow I mention here is what I use for maintaining my Todos.
+
+As a developer, we have many demands to fulfill - each from various projects that we are involved in. Some of these todos are those that we make a note-of ourselves, and some of them come to us from other sources - our bosses, colleagues, friends (eg: in an opensource collaboration), or even from our family :-)
+
+What other best tool do we have when compared to our dear-old Emacs? With org-mode, we organise our lives in plain-text!
+
+The default workflow for all our todos as configured by the org-mode settings (see below) goes like this:
+
+- All captured todos get into a todo file in the default state `TODO`. Capture is configured to be done with `C-c c`.
+- When we begin working on them, we move them to `INPROGRESS`. Moving a todo to a state forward (in this case, from `TODO` to `INPROGRESS`) is done using `S-right`.
+- If this todo has many steps, they are added as sub-entries. Default state of these added sub-entries are also `TODO`.
+- Some of these sub-entries may actually become the `NEXT` thing to do with respect to the original `INPROGRESS` todo. If the `INPROGRESS` todo is already self-contained, it becomes the `NEXT` action itself.
+- When time comes to work on a `NEXT` action, it gets to be a task to be done `TODAY`. Of course, it remains at `TODAY` until it is done OR...
+  - If it needs a dependent action to be done (eg, your code is to be reviewed by another collegue before checking in), it gets `WAIT`ing.
+  - If it is no longer relevant (eg: deadline is passed, and your boss is angry at you) - your task gets `CANCELLED`.
+  - May be it is not very important now, but still needs to be in your radar until you are satisfied to restart it, or cancel it - so it is `DEFERRED`.
+- From any of the above states, to go back to the previous state, use `S-Left`.
+
+You can either follow the same workflow, or of course, change it to your liking - see org-mode settings below.
+
+## Org-mode - settings
 Well, most of the settings are directly to use the org-mode very effectively. All the org-mode settings are in the file `orgsettings.el`. On default, all the org-mode files are to be stored in the directory `<emacshome>/.plans` - and this can be changed by changing the value of the variable `plansdir` in `.emacs`.
 
 To change the behaviour of orgmode, either change the settings in this file, or, override them by putting the settings in your own `.emacsuser` file in the home directory. The advantage of putting it in the `.emacsuser` is that you can update the repo for new settings, without the fear of overwriting your own settings.
