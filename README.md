@@ -23,6 +23,20 @@ Any customisations done via the emacs customisation interface go into the `custo
 
 Note that all the keybindings (except those for org-mode) are put in one place: `keybindings.el`. All the org-mode keybindings are put along with other org-mode settings (see below).
 
+# Color themes
+The popular package color-theme is included with the configuration. The default color theme is as set in `loadext.el` file.
+
+To choose another color theme:
+
+- Type `M-x color-theme-select`
+- In the buffer that gives a list of color themes, test your theme by simply moving your cursor on a color-theme, and pressing `<ENTER>`
+- Once satisfied with a specific color theme, keeping the cursor on the selected theme, press `?` - you will now see information on the chosen color theme.
+- The name of the color theme that you can use will be mentioned in the information. Simply add this in the `<emacshome>/.emacsuser` file. Example:
+
+   `(color-theme-pok-wog)`
+   
+- Of course, you could also replace the default color theme in `loadext.el` file with your chosen theme - in that case, if you pull in new updates to your `.emacs.d` folder, you will overide the setting.
+
 # Additional package installation, and elpa configuration
 ## One-time configuration
 The settings have been done so that all the emacs packages get into the directory `<emacshome>/.emacselpa`. For the packages to be installed, it is important that you have the proper GPG key for verifying the signatures of the package. Follow these steps to make it all work:
@@ -91,7 +105,7 @@ We have some customisations for the calendar and diary too. Most importantly, fo
 Diary is bound to `c-c d` - again, done in `keybindings.el`. Diary file is searched in the same directory as your plans: on default, the file ~/.plans/diary is used. This location can be changed in `init.el`. The first time diary is used, this file needs to be created. 
 
 # Other files and directories
-`extensions` - Where you can drop other extensions you want. The file `loadext.el` is for adding all the auto-load statements for loading the dropped extensions.
+`extensions` - Where you can drop other extensions you want. The file `loadext.el` is for adding all the auto-load statements for loading the dropped extensions. It also loads the color-theme.
 
 `mycode` - Any custom code you have developed yourself can get in here.
 
