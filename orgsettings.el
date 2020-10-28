@@ -154,4 +154,8 @@
 
 (defsubst make-org-header ()
   "Insert header in the orgmode"
-  (insert "#+TITLE: \n" "#+STARTUP: indent\n" "#+STARTUP: showall\n" "#+CATEGORY: \n\n"))
+  (insert "#+TITLE: \n" "#+STARTUP: indent\n" "#+STARTUP: showall\n" "#+CATEGORY: "
+	  (capitalize (file-name-nondirectory (file-name-sans-extension buffer-file-name))) "\n\n")
+  (setq return-to 10))
+
+
