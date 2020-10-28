@@ -132,6 +132,11 @@
 	     "* %u %^{Enter title}\n%?\n  %i\n")
 	    ("j" "Journal" entry (file+olp+datetree journal-file)
 	     "* [%<%H:%M>] %?\n  %i\n")))
+
+    ;; Finally, on a new org-mode file, create the header
+    ;; with some initial buffer variables.
+    (setq make-header-hook '(make-org-header))
+    (auto-make-header)
     
     ;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Decrypt encrypted headlines
@@ -146,3 +151,7 @@
     ;; Capture
     (define-key org-mode-map(kbd "C-c c") 'org-capture)    
 ))
+
+(defsubst make-org-header ()
+  "Insert header in the orgmode"
+  (insert "#+TITLE: \n" "#+STARTUP: indent\n" "#+STARTUP: showall\n" "#+CATEGORY: \n\n"))
