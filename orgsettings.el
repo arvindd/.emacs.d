@@ -6,10 +6,28 @@
 (add-hook 'org-mode-hook
   (lambda ()
     ;; Make all files (except the encrupted gpg files) in the plansdir also as agenda files
-    (setq org-agenda-files (directory-files-recursively plansdir "\\.org$"))
+    ;; The regex used here is pretty complex: so an explanation is necessary. Just so that
+    ;; we remove the noise due to backslashes, here is the "non-backslashed" version:
+    ;;
+    ;; ^(.$|[^.].+|\.[^#].+)(\.org)$
+    ;;
+    ;; The first group has three options:
+    ;; 1. A file with just 1 character in its name
+    ;; 2. A file not starting with a "."
+    ;; 3. A file starting with ".", and not followed by a "#" in its name
+    ;; 
+    ;; (2) and (3) above are to avoid matching an emacs lock file (lock files start
+    ;; with a ".#", and so we do not want these files to be added as agenda files).
+    ;;
+    ;; The second group is to make sure that all files matched have the extension ".org".
+    (setq org-agenda-files (directory-files-recursively plansdir "^\\(.$\\|[^.].+\\|\\.[^#].+\\)\\(\\.org\\)$"))
+    
     ;; To also include encrypted gpg files as agenda files, comment the above line,
-    ;; and uncomment the following line.
-    ;; (setq org-agenda-files (directory-files-recursively plansdir "\\.\\(org\\|gpg\\)$"))
+    ;; and uncomment the following line. The regex is similar to the above, except that
+    ;; we pull out the "." preceding the extension out of the second group, so that we
+    ;; can easily match both "org" and "gpg" extensions for files.
+    ;;
+    ;; (setq org-agenda-files (directory-files-recursively plansdir "^\\(.$\\|[^.].+\\|\\.[^#].+\\)\\.\\(org\\|gpg\\)$"))
 
     ;; Enable visual line mode. Very helpful for capture buffers.
     (setq visual-line-mode t)
