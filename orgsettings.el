@@ -37,9 +37,10 @@
     (setq org-clock-persist 'history)
     (org-clock-persistence-insinuate)
 
-    ;; Emacs diary integration: uncomment the following to put all diary entries also
-    ;; in the agenda
-    ;; (setq org-agenda-include-diary t)
+    ;; Emacs diary integration
+    ;; We integrate diary so that we could serve keep some journals and appointments at one place,
+    ;; and still show them on our agenda. 
+    (setq org-agenda-include-diary t)  
 
     ;; In which files do we want to refile entries?
     ;; We allow all agenda files to be refile targets too so that entries can be freely
