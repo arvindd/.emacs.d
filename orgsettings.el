@@ -131,8 +131,8 @@
     (setq org-agenda-custom-commands
        '(("q" "Quick view of agenda and incomplete todos"
 	  ((agenda "" ((org-agenda-span 'day)))
-	   (todo "NEXT" nil)
 	   (todo "TODAY" nil)
+	   (todo "NEXT" nil)     
 	   (todo "WAIT" nil)
 	   (todo "DEFERRED" nil)
 	   (todo "INPROGRESS" nil)	   
