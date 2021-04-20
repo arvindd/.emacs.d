@@ -40,7 +40,7 @@
     ;; Emacs diary integration
     ;; We integrate diary so that we could serve keep some journals and appointments at one place,
     ;; and still show them on our agenda. 
-    (setq org-agenda-include-diary t)  
+    ;; (setq org-agenda-include-diary t)  
 
     ;; In which files do we want to refile entries?
     ;; We allow all agenda files to be refile targets too so that entries can be freely

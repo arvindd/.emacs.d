@@ -23,6 +23,40 @@ Any customisations done via the emacs customisation interface go into the `custo
 
 Note that all the keybindings (except those for org-mode) are put in one place: `keybindings.el`. All the org-mode keybindings are put along with other org-mode settings (see below).
 
+# Windows specific installation / settings
+## Starting Emacs as a server
+Well, windows is a beast, but we can handle that too. The best way is to have the user-preference file (`.emacsuer` mentioned above) with the following code:
+
+         (when (eq system-type 'windows-nt)
+             (require 'server)
+             (unless (server-running-p) (server-start))
+	  
+          # The following is also useful in a corporate environment where [cntlm](http://cntlm.sourceforge.net/) or [px](https://github.com/genotrance/px) 
+		  # is used as a proxy-proxy to access internet via an NTLM proxy
+          # (setq url-proxy-services
+          #      '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+          #        ("http" . "localhost:3128")
+          #        ("https" . "localhost:3128")))
+
+You can add other customisations to the above file; note that we also have a (commented out) configuration for a proxy setup in the above file. To use that config, just uncomment the lines, and add your specific values to the variables.
+
+## Pinning to taskbar
+Hey, this is another small trick. To pin emacs on the taskbar, just follow these steps:
+
+1. In your emacs distribution, get into the `bin` folder, and double-click on `runemacs` to start emacs. Emacs starts, with an icon shown on the taskbar 
+2. Now, right-click on the icon on the taskbar, and click on "pin to taskbar"
+3. Right-click this icon again, and move up to `emacs` menu-option, and right-click that again. Select "Properties"
+4. In the "Properties", change the target to run `runemacs` instead of `emacs` that you'll see there. **Very important is to keep the rest of the path as it is!**
+
+Yes, it requires all these steps in this order to have the best "pin to taskbar" experience. A simple "pin to taskbar" with following the other (one-time) steps will show two icons on the taskbar everytime emacs is started.
+
+## Adding emacs to context-menu
+**NOTE: For this to work, you should have already followed the steps mentione in "Starting Emacs as a server" above.**
+
+If you would just like to use emacs to edit files, and would like to access emacs via a context menu, all you have to do is to edit the `addtomenu` file that you see in this repo to change all the paths to emacs to the one that you have in your PC, and then double-click this file to add some registry information. After do this, you will see two menu items in your context-menu: one that starts a new emacs for editing files, and one that simply allows you to use an existing emacs instance to edit a file.
+
+If your emacs is in `c:\tools\emacs` directory, then, the file `addtomenu` already contains this path: simply double-click that to add these menu-items in your context-menu.
+
 # Color themes
 The popular package color-theme is included with the configuration. The default color theme is as set in `loadext.el` file.
 
@@ -60,6 +94,12 @@ Having done the above steps once after you clone this repo, there is no longer a
 
     M-x package-install RET <package-to-install> RET
    
+There are so many interesting emacs packages that can be installed to make your emacs experience very good. One of the many such interesting package is: [magit](https://magit.vc/) - a magical git interface. To install this in your emacs installation, just do this:
+
+    M-x package-install RET magit RET
+
+Keybinding for `magit` is already configured in the settings; to invoke magit, just use: `c-x g`. To know how to use magit for working with git, check out the official [magit website](https://magit.vc/).
+
 All installed packages get into the directory `<emacshome>/.emacselpa`. These are not affected anytime you update this repo because this directory is outside the repository. You are free to install whatever packages you need.
 
 All settings for package installation from ELPA sources are in the `load-melpa.el` file.
