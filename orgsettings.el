@@ -89,6 +89,14 @@
     ;; Either the Key ID or set to nil to use symmetric encryption.
     (setq org-crypt-key nil)
 
+    ;; Enable source code additions in org-mode using babel
+    ;; active Babel languages
+    (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((python . t)
+      (csharp . t)
+      (fsharp . t)))
+
     ;; Todo keyword sequences
     ;; TODO: t - Initial state: when a todo is captured and not yet processed.
     ;; INPROGRESS: p - Started working on. We use this only for "top-level" todos
