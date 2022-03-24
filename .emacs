@@ -1,7 +1,7 @@
 ;;;; Emacs initialisation file
 ;;
 ;; AUTHOR: Arvind Devarajan
-;; CREATED: Not very precise, but in the year 2010
+;; CREATED: 2010 CE
 ;;
 
 ;; Where all the emacs file will be kept. Typically this
@@ -39,27 +39,26 @@
 ;; Where you want to keep all the org-mode files
 (setq plansdir (concat emacshome "/.plans/"))
 
+;; Optional custom settings, which become effective before
+;; any other settings are loaded in. Having any settings
+;; here will make sure that they are not overwritten when
+;; a new version of .emacs.d is pulled in.
+;;
+;; All settings (such as proxy settings, automatic package
+;; installs, etc. can be put in this file. Sample .emacsuserpre
+;; file is also found in this repository)
+(setq user-pre-emacs-file (concat emacshome "/.emacsuserpre"))
+(if (file-readable-p user-pre-emacs-file) (load user-pre-emacs-file))
+
 ;; Entry point for all the rest of the initialisations
 (load-file (concat init-file-dir "/init.el"))
 
-;; Optional custom settings, which can override settings in init.el
-;; If this file is present, it is loaded so that users can have settings
-;; in this file can either override those in init.el, or can add additional
-;; settings not present in init.el. This can be used for setting, for example,
-;; other color-themes, more org-settings, etc.
+;; Optional custom settings (similar to .emacsuserpre), which can override 
+;; settings in init.el. If this file is present, it is loaded so that users 
+;; can have settings in this file can either override those in init.el, or 
+;; can add additional settings not present in init.el. This can be used for
+;; setting, for example, other color-themes, more org-settings, etc.
 ;;
-;; One very interesting way to use this is to have a function to start the
-;; emacs server in this file:
-;;
-;; (server-start)
-;;
-;; By doing so, and by also opening files using emacsclient (instead of emacs), it is possible
-;; to have just a single instance of emacs opening all the files. To enable the first
-;; instance uses emacs even when emacsclient is used for opening, make sure to set the
-;; environment variable ALTERNATE_EDITOR pointing to emacs (or runemacs on Windows). This
-;; is especially useful in a GUI environment (on Windows, or on GNOME/KDE interface on Linux):
-;; simply associating text files to be opened by emacsclient, it is possible to "double-click"
-;; the file, and it opens automatically in a running instance of emacs (or starts the first
-;; instance of emacs).
-(setq user-emacs-file (concat emacshome "/.emacsuser"))
-(if (file-readable-p user-emacs-file) (load user-emacs-file))
+;; Sample .emacsuserpost file is also found in this repository.
+(setq user-post-emacs-file (concat emacshome "/.emacsuserpost"))
+(if (file-readable-p user-post-emacs-file) (load user-post-emacs-file))

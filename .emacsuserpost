@@ -1,0 +1,15 @@
+;; Start emacs server
+;; This is useful if you would want to use only one instance of emacs for all
+;; files you open. THis saves some startup time.
+;;
+;; Especially for windows, this is very useful because it allows for double-clicking
+;; a file in the windows explorer and it opens in a running emacs instance.
+(when (eq system-type 'windows-nt)
+        (require 'server)
+        (unless (server-running-p) (server-start)))
+
+;; Set calendar to european form (dd-mm-yy) - this overrides the default US form
+(calendar-set-date-style 'european)
+
+;; Maximise window after it starts
+(add-to-list 'default-frame-alist '(fullscreen . maximized))

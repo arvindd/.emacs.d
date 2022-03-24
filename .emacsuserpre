@@ -1,0 +1,14 @@
+;; Melpa might require proxy in corporate environments
+;; It is best to add proxies in the user-pre file so that
+;; all settings that need internet connections can use these proxies.
+(setq url-proxy-services
+      '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+        ("http" . "localhost:3128")
+        ("https" . "localhost:3128")))
+
+;; Add any packages that you want to automatically install if not found
+;; Add these packages to the list auto-install-package-list
+(setq auto-install-package-list
+ '(magit
+   csharp-mode)
+)

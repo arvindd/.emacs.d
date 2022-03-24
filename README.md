@@ -15,7 +15,12 @@ This repository contains all my settings for emacs. It is structured so that it 
 That is it. You should be able to use emacs already with this setup, with many settings already in place for you.
 
 # Further settings
-The settings can be further customised by anybody who uses this repo, either by directly changing the settings in the *.el files, or by simply adding another file (`.emacsuser`) in the home directory. By adding such a user-settings file, it is possible for whoever uses this repo to keep the settings updated from the repo, without the fear of overwriting their own settings. The file `.emacsuser` will not be overwritten by repo update, because this file is outside the repo, and need to be created by the user.
+The settings can be further customised by anybody who uses this repo, either by directly changing the settings in the *.el files, or by simply adding one of these files - `.emacsuserpre` OR/AND `.emacsuserpost` - in the home directory. The pre-settings file sets configurations that 
+can help in being effective before the rest of the settings are effective (therefore, things like setting proxy in a corporate environment
+can get into this) and the post-settings file are for settings that can override default settings (for example, you may override the default
+color scheme here).
+
+By adding such a user-settings file, it is possible for whoever uses this repo to keep the settings updated from the repo, without the fear of overwriting their own settings. The file `.emacsuserpre` or `.emacsuserpost` will not be overwritten by repo update, because this file is outside the repo, and need to be created by the user. Samples of both these files are also in this repo.
 
 The file `.emacs` that is in the repo (and which needs to be moved to the home directory before using these settings) contain basic paths for various features (eg: `plansdir` where the org-mode files will be in, etc.). `emacshome` is like the top-most directory, relative to which other files are searched for. 
 
@@ -24,22 +29,6 @@ Any customisations done via the emacs customisation interface go into the `custo
 Note that all the keybindings (except those for org-mode) are put in one place: `keybindings.el`. All the org-mode keybindings are put along with other org-mode settings (see below).
 
 # Windows specific installation / settings
-## Starting Emacs as a server
-Well, windows is a beast, but we can handle that too. The best way is to have the user-preference file (`.emacsuer` mentioned above) with the following code:
-
-         (when (eq system-type 'windows-nt)
-             (require 'server)
-             (unless (server-running-p) (server-start))
-	  
-          # The following is also useful in a corporate environment where [cntlm](http://cntlm.sourceforge.net/) or [px](https://github.com/genotrance/px) 
-		  # is used as a proxy-proxy to access internet via an NTLM proxy
-          # (setq url-proxy-services
-          #      '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-          #        ("http" . "localhost:3128")
-          #        ("https" . "localhost:3128")))
-
-You can add other customisations to the above file; note that we also have a (commented out) configuration for a proxy setup in the above file. To use that config, just uncomment the lines, and add your specific values to the variables.
-
 ## Pinning to taskbar
 Hey, this is another small trick. To pin emacs on the taskbar, just follow these steps:
 

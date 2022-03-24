@@ -9,14 +9,20 @@ There are two things you can do about this warning:
 1. Install an Emacs version that does support SSL and be safe.
 2. Remove this warning from your init file so you won't see it again."))
 
-  ;; Uncomment this if you want to have packages from non-stable (dev) branch
-  ;; of melpa.
-  ;; (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
 
   ;; Melpa stable packages
-  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  ;; Uncomment this if you want to have packages from the stable branch. Note that
+  ;; melpa maintainers themselves do not use melpa stable.
+  ;; (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
   )
 
 (setq package-user-dir elpa-package-dir)
 
 (package-initialize)
+
+;; Install all packages that were originally installed
+;; and need to be installed again.
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)

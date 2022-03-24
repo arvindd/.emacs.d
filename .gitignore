@@ -1,5 +1,7 @@
 auto-save-list/**
 bookmarks
 server/**
+transient/**
 org-clock-save.el
 custom.el
+network-security.data

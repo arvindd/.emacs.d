@@ -37,6 +37,13 @@
 (setq ext-file (concat init-file-dir "/loadext.el"))
 (if (file-readable-p ext-file) (load ext-file))
 
+;; If there are any packages to be automatically installed
+;; add them to the package-selected-packages so that melpa
+;; load below considers these packages
+(if (equal (boundp 'package-selected-packages) nil)
+    (setq package-selected-packages auto-install-package-list)
+    (append package-selected-packages auto-install-package-list))
+
 ;; Many packages come from MELPA, so we add the infra here
 (setq load-melpa-file (concat init-file-dir "/load-melpa.el"))
 (if (file-readable-p load-melpa-file) (load load-melpa-file))
