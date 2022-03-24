@@ -27,6 +27,9 @@
 ;; Enable word-wrap. This will respect newlines - so helpful when killing long lines.
 (setq-default word-wrap t)
 
+;; Let's set our default theme (this can be overridden in the post user settings file)
+(load-theme 'light-blue)
+
 ;; Customise where you want all the initialisation files go
 (setq user-init-file (concat (file-name-directory load-file-name) ".emacs"))
 (setq custom-file (concat init-file-dir "/custom.el"))
