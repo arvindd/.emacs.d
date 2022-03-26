@@ -89,6 +89,11 @@
     ;; Either the Key ID or set to nil to use symmetric encryption.
     (setq org-crypt-key nil)
 
+    ;; For export of orgfiles, lets make sure the page margins are correct
+    ;; This works especially for latex export (and hence pdf export too)
+    ;; Org-mode files can be exported to pdf with C-c C-e l p
+    (setq org-latex-packages-alist '(("margin=2.5cm" "geometry")))
+
     ;; Enable source code additions in org-mode using babel
     ;; active Babel languages
     (org-babel-do-load-languages
