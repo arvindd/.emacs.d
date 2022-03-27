@@ -94,6 +94,26 @@
     ;; Org-mode files can be exported to pdf with C-c C-e l p
     (setq org-latex-packages-alist '(("margin=2.5cm" "geometry")))
 
+    ;; The settings below makes org-mode use lualatex for
+    ;; latex processing, so that unicode characters can also be
+    ;; used in our org files.
+    (setq org-latex-pdf-process
+	  '("lualatex -shell-escape -interaction nonstopmode %f"
+	    "lualatex -shell-escape -interaction nonstopmode %f"))
+
+    (setq luamagick '(luamagick :programs ("lualatex" "magick")
+				:description "pdf > png"
+				:message "you need to install lualatex and imagemagick."
+				:use-xcolor t
+				:image-input-type "pdf"
+				:image-output-type "png"
+				:image-size-adjust (1.0 . 1.0)
+				:latex-compiler ("lualatex -interaction nonstopmode -output-directory %o %f")
+				:image-converter ("magick convert -density %D -trim -antialias %f -quality 100 %O")))
+
+    (add-to-list 'org-preview-latex-process-alist luamagick)
+    (setq org-preview-latex-default-process 'luamagick)
+
     ;; Enable source code additions in org-mode using babel
     ;; active Babel languages
     (org-babel-do-load-languages
