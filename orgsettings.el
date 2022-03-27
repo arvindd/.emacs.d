@@ -117,20 +117,25 @@
     (setq org-latex-packages-alist
 	  '(("margin=2.5cm" "geometry" t nil)))
 
+    ;; Default packages that we want to load for latex export.
+    ;; The default value of this variable does not add the
+    ;; "utf8" option for inputenc and this does not go
+    ;; well with the lualatex compiler we are using for
+    ;; latex / pdf exports
     (setq org-latex-default-packages-alist
 	  '(("utf8" "inputenc" t ("pdflatex"))
-            ("T1" "fontenc" t ("pdflatex"))
-            ("" "graphicx" t nil)
-            ("" "grffile" t nil)
-            ("" "longtable" nil nil)
-            ("" "wrapfig" nil nil)
-            ("" "rotating" nil nil)
-            ("normalem" "ulem" t nil)
-            ("" "amsmath" t nil)
-            ("" "textcomp" t nil)
-            ("" "amssymb" t nil)
-            ("" "capt-of" nil nil)
-            ("" "hyperref" nil nil)))
+      ("T1" "fontenc" t ("pdflatex"))
+      ("" "graphicx" t nil)
+      ("" "grffile" t nil)
+      ("" "longtable" nil nil)
+      ("" "wrapfig" nil nil)
+      ("" "rotating" nil nil)
+      ("normalem" "ulem" t nil)
+      ("" "amsmath" t nil)
+      ("" "textcomp" t nil)
+      ("" "amssymb" t nil)
+      ("" "capt-of" nil nil)
+      ("" "hyperref" nil nil)))
 
     ;; The settings below makes org-mode use lualatex for
     ;; latex processing, so that unicode characters can also be
