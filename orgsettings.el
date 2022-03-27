@@ -114,16 +114,29 @@
     ;; Lets make sure the page margins are correct
     ;; This works especially for latex export (and hence pdf export too)
     ;; Org-mode files can be exported to pdf with C-c C-e l p
-    (setq org-latex-packages-alist '(("margin=2.5cm" "geometry")))
+    (setq org-latex-packages-alist
+	  '(("margin=2.5cm" "geometry" t nil)))
+
+    (setq org-latex-default-packages-alist
+	  '(("utf8" "inputenc" t ("pdflatex"))
+            ("T1" "fontenc" t ("pdflatex"))
+            ("" "graphicx" t nil)
+            ("" "grffile" t nil)
+            ("" "longtable" nil nil)
+            ("" "wrapfig" nil nil)
+            ("" "rotating" nil nil)
+            ("normalem" "ulem" t nil)
+            ("" "amsmath" t nil)
+            ("" "textcomp" t nil)
+            ("" "amssymb" t nil)
+            ("" "capt-of" nil nil)
+            ("" "hyperref" nil nil)))
 
     ;; The settings below makes org-mode use lualatex for
     ;; latex processing, so that unicode characters can also be
     ;; used in our org files.
     (setq lualatex-prog-options (concat "lualatex -shell-escape -interaction nonstopmode -output-directory " exportsdir " %f"))
     (setq org-latex-pdf-process (list lualatex-prog-options lualatex-prog-options))
-    ;;(setq org-latex-pdf-process
-    ;;	  '("lualatex -shell-escape -interaction nonstopmode -output-directory exports %f"
-    ;;	    "lualatex -shell-escape -interaction nonstopmode -output-directory exports %f"))
 
     (setq luamagick '(luamagick :programs ("lualatex" "magick")
 				:description "pdf > png"
@@ -137,6 +150,7 @@
 
     (add-to-list 'org-preview-latex-process-alist luamagick)
     (setq org-preview-latex-default-process 'luamagick)
+    
     ;; ==== END: PDF Export ===
     
     ;; Enable source code additions in org-mode using babel
