@@ -5,6 +5,17 @@
 
 (add-hook 'org-mode-hook
   (lambda ()
+    ;; Capture the current file name (without extension) and its directory in easy-to-access variables
+    ;; These will be used in many places below
+    (setq curfilename (file-name-nondirectory (file-name-sans-extension buffer-file-name)))
+    (setq curdirname (file-name-directory buffer-file-name))
+
+    ; Base directory of plansdir (Eg: ".plans"). Note that plansdir is the complete path: "~/.plans".
+    (setq plansdirbase
+	  (concat "/"
+		  (file-name-nondirectory (directory-file-name (expand-file-name plansdir)))
+		  "/"))
+
     ;; Make all files (except the encrupted gpg files) in the plansdir also as agenda files
     ;; The regex used here is pretty complex: so an explanation is necessary. Just so that
     ;; we remove the noise due to backslashes, here is the "non-backslashed" version:
@@ -89,7 +100,18 @@
     ;; Either the Key ID or set to nil to use symmetric encryption.
     (setq org-crypt-key nil)
 
-    ;; For export of orgfiles, lets make sure the page margins are correct
+    ;; === BEGIN: PDF exports of org files ===
+    (setq exportsdir "exports/")
+    
+    ;; Make sure we have an exports directory if we are within
+    ;; the plansdir. If not, create one.
+    ;; We want to do this only if we are in a subdir of plansdir
+    ;; as we do not want to litter our filesystem with exports dir!
+    (when
+	(string-match-p plansdirbase curdirname)
+        (make-directory (concat curdirname exportsdir) t))
+    
+    ;; Lets make sure the page margins are correct
     ;; This works especially for latex export (and hence pdf export too)
     ;; Org-mode files can be exported to pdf with C-c C-e l p
     (setq org-latex-packages-alist '(("margin=2.5cm" "geometry")))
@@ -97,9 +119,11 @@
     ;; The settings below makes org-mode use lualatex for
     ;; latex processing, so that unicode characters can also be
     ;; used in our org files.
-    (setq org-latex-pdf-process
-	  '("lualatex -shell-escape -interaction nonstopmode %f"
-	    "lualatex -shell-escape -interaction nonstopmode %f"))
+    (setq lualatex-prog-options (concat "lualatex -shell-escape -interaction nonstopmode -output-directory " exportsdir " %f"))
+    (setq org-latex-pdf-process (list lualatex-prog-options lualatex-prog-options))
+    ;;(setq org-latex-pdf-process
+    ;;	  '("lualatex -shell-escape -interaction nonstopmode -output-directory exports %f"
+    ;;	    "lualatex -shell-escape -interaction nonstopmode -output-directory exports %f"))
 
     (setq luamagick '(luamagick :programs ("lualatex" "magick")
 				:description "pdf > png"
@@ -113,7 +137,8 @@
 
     (add-to-list 'org-preview-latex-process-alist luamagick)
     (setq org-preview-latex-default-process 'luamagick)
-
+    ;; ==== END: PDF Export ===
+    
     ;; Enable source code additions in org-mode using babel
     ;; active Babel languages
     (org-babel-do-load-languages
@@ -207,5 +232,7 @@
 (defsubst make-org-header ()
   "Insert header in the orgmode"
   (insert "#+TITLE: \n" "#+STARTUP: indent\n" "#+STARTUP: showall\n" "#+CATEGORY: "
-	  (upcase (file-name-nondirectory (file-name-sans-extension buffer-file-name))) "\n\n")
+	  (upcase curfilename) "\n"
+	  "#+AUTHOR: \n" "#+DATE: " (format-time-string "%b %Y\n") "#+EXPORT_FILE_NAME: "
+	  exportsdir curfilename ".pdf\n\n")
   (setq return-to 10))
