@@ -4,7 +4,7 @@
 ;;
 
 ;; Where do all the diary entries go?
-(setq diary-file (concat plansdir "diary"))
+(setq diary-file (concat notesdir "diary"))
 
 ;; We would like to mark calendar days where there are diary entries.
 (setq calendar-mark-diary-entries-flag t)

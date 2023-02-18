@@ -6,13 +6,13 @@ Windows Registry Editor Version 5.00
 ;; Open file in existing 
 [HKEY_CURRENT_USER\Software\Classes\*\shell\emacsopencurrentframe]
 @="&Emacs: Edit in an existing window"
-"icon"="C:\\tools\\emacs\\bin\\emacsclientw.exe"
+"icon"="D:\\tools\\emacs\\bin\\emacsclientw.exe"
 [HKEY_CURRENT_USER\Software\Classes\*\shell\emacsopencurrentframe\command]
-@="C:\\tools\\emacs\\bin\\emacsclientw.exe -n --alternate-editor=\"C:\\tools\\emacs\\bin\\runemacs.exe\" \"%1\""
+@="D:\\tools\\emacs\\bin\\emacsclientw.exe -n --alternate-editor=\"D:\\tools\\emacs\\bin\\runemacs.exe\" \"%1\""
 
 ;; Open file in new frame
 [HKEY_CURRENT_USER\Software\Classes\*\shell\emacsopennewframe]
 @="&Emacs: Edit in a new window"
-"icon"="C:\\tools\\emacs\\bin\\emacsclientw.exe"
+"icon"="D:\\tools\\emacs\\bin\\emacsclientw.exe"
 [HKEY_CURRENT_USER\Software\Classes\*\shell\emacsopennewframe\command]
-@="C:\\tools\\emacs\\bin\\emacsclientw.exe -n --alternate-editor=\"C:\\tools\\emacs\\bin\\runemacs.exe\" -c \"%1\""
+@="D:\\tools\\emacs\\bin\\emacsclientw.exe -n --alternate-editor=\"D:\\tools\\emacs\\bin\\runemacs.exe\" -c \"%1\""

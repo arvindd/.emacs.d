@@ -250,8 +250,13 @@
 
 (defsubst make-org-header ()
   "Insert header in the orgmode"
-  (insert "#+TITLE: \n" "#+STARTUP: indent\n" "#+STARTUP: showall\n" "#+CATEGORY: "
-	  (upcase curfilename) "\n"
-	  "#+AUTHOR: \n" "#+DATE: " (format-time-string "%b %Y\n") "#+EXPORT_FILE_NAME: "
-	  exportsdir curfilename ".pdf\n\n")
+  (insert "#+title: \n"
+	  "#+date: " (format-time-string "%b %Y\n")
+	  "#+type: docs\n"
+	  "#+draft: true\n"
+	  "#+startup: indent\n"
+	  "#+startup: showall\n"
+	  "#+category: "(upcase curfilename) "\n"
+	  "#+author: \n"
+	  "#+export_file_name: " exportsdir curfilename ".pdf\n\n")
   (setq return-to 10))

@@ -89,8 +89,8 @@
 
 ;; Finally, automatically show org file. Show this only if we do not have any other
 ;; arguments on the command line.
-(setq plan-file (concat plansdir "plan.org"))
-(setq org-directory plansdir)
-(if (file-readable-p plan-file)
+(setq index-file (concat notesdir "_index.org"))
+(setq org-directory notesdir)
+(if (file-readable-p index-file)
  (if (eq (length command-line-args) 1)
-   (setq initial-buffer-choice plan-file)))
+   (setq initial-buffer-choice index-file)))
