@@ -22,7 +22,7 @@ color scheme here).
 
 By adding such a user-settings file, it is possible for whoever uses this repo to keep the settings updated from the repo, without the fear of overwriting their own settings. The file `.emacsuserpre` or `.emacsuserpost` will not be overwritten by repo update, because this file is outside the repo, and need to be created by the user. Samples of both these files are also in this repo.
 
-The file `.emacs` that is in the repo (and which needs to be moved to the home directory before using these settings) contain basic paths for various features (eg: `plansdir` where the org-mode files will be in, etc.). `emacshome` is like the top-most directory, relative to which other files are searched for. 
+The file `.emacs` that is in the repo (and which needs to be moved to the home directory before using these settings) contain basic paths for various features (eg: `notesdir` where the org-mode files will be in, etc.). `emacshome` is like the top-most directory, relative to which other files are searched for. 
 
 Any customisations done via the emacs customisation interface go into the `custom.el` file.
 
@@ -122,7 +122,7 @@ The default workflow for all our todos as configured by the org-mode settings (s
 You can either follow the same workflow, or of course, change it to your liking - see org-mode settings below.
 
 ## Org-mode - settings
-Well, most of the settings are directly to use the org-mode very effectively. All the org-mode settings are in the file `orgsettings.el`. On default, all the org-mode files are to be stored in the directory `<emacshome>/.plans` - and this can be changed by changing the value of the variable `plansdir` in `.emacs`.
+Well, most of the settings are directly to use the org-mode very effectively. All the org-mode settings are in the file `orgsettings.el`. On default, all the org-mode files are to be stored in the directory `<emacshome>/.notes` - and this can be changed by changing the value of the variable `notesdir` in `.emacs`.
 
 To change the behaviour of orgmode, either change the settings in this file, or, override them by putting the settings in your own `.emacsuser` file in the home directory. The advantage of putting it in the `.emacsuser` is that you can update the repo for new settings, without the fear of overwriting your own settings.
 
@@ -131,7 +131,7 @@ All the calendar and diary settings get into `caldiary.el`.
 
 We have some customisations for the calendar and diary too. Most importantly, for the calendar (which in our configuration is bound to `c-c v`, as expected, in `keybindings.el`), week numbers are displayed. The week also starts from Monday, with the weekends put at the end.
 
-Diary is bound to `c-c d` - again, done in `keybindings.el`. Diary file is searched in the same directory as your plans: on default, the file ~/.plans/diary is used. This location can be changed in `init.el`. The first time diary is used, this file needs to be created. 
+Diary is bound to `c-c d` - again, done in `keybindings.el`. Diary file is searched in the same directory as your notes: on default, the file ~/.notes/diary is used. This location can be changed in `init.el`. The first time diary is used, this file needs to be created. 
 
 # Other files and directories
 `extensions` - Where you can drop other extensions you want. The file `loadext.el` is for adding all the auto-load statements for loading the dropped extensions. It also loads the color-theme.
