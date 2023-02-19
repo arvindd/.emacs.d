@@ -10,13 +10,13 @@
     (setq curfilename (file-name-nondirectory (file-name-sans-extension buffer-file-name)))
     (setq curdirname (file-name-directory buffer-file-name))
 
-    ; Base directory of plansdir (Eg: ".plans"). Note that plansdir is the complete path: "~/.plans".
-    (setq plansdirbase
+    ; Base directory of notesdir (Eg: ".notes"). Note that notesdir is the complete path: "~/.notes".
+    (setq notesdirbase
 	  (concat "/"
-		  (file-name-nondirectory (directory-file-name (expand-file-name plansdir)))
+		  (file-name-nondirectory (directory-file-name (expand-file-name notesdir)))
 		  "/"))
 
-    ;; Make all files (except the encrupted gpg files) in the plansdir also as agenda files
+    ;; Make all files (except the encrupted gpg files) in the notesdir also as agenda files
     ;; The regex used here is pretty complex: so an explanation is necessary. Just so that
     ;; we remove the noise due to backslashes, here is the "non-backslashed" version:
     ;;
@@ -31,14 +31,14 @@
     ;; with a ".#", and so we do not want these files to be added as agenda files).
     ;;
     ;; The second group is to make sure that all files matched have the extension ".org".
-    (setq org-agenda-files (directory-files-recursively plansdir "^\\(.$\\|[^.].+\\|\\.[^#].+\\)\\(\\.org\\)$"))
+    (setq org-agenda-files (directory-files-recursively notesdir "^\\(.$\\|[^.].+\\|\\.[^#].+\\)\\(\\.org\\)$"))
     
     ;; To also include encrypted gpg files as agenda files, comment the above line,
     ;; and uncomment the following line. The regex is similar to the above, except that
     ;; we pull out the "." preceding the extension out of the second group, so that we
     ;; can easily match both "org" and "gpg" extensions for files.
     ;;
-    ;; (setq org-agenda-files (directory-files-recursively plansdir "^\\(.$\\|[^.].+\\|\\.[^#].+\\)\\.\\(org\\|gpg\\)$"))
+    ;; (setq org-agenda-files (directory-files-recursively notesdir "^\\(.$\\|[^.].+\\|\\.[^#].+\\)\\.\\(org\\|gpg\\)$"))
 
     ;; Enable visual line mode. Very helpful for capture buffers.
     (setq visual-line-mode t)
@@ -57,7 +57,7 @@
     ;; We allow all agenda files to be refile targets too so that entries can be freely
     ;; moved around the files we create. We include the file in which refile was invoked
     ;; and all agenda files - upto a max-level of 2 in the headings.
-    (setq gpg-files (directory-files-recursively plansdir "\\.gpg$"))
+    (setq gpg-files (directory-files-recursively notesdir "\\.gpg$"))
     (setq org-refile-targets '((nil :maxlevel . 2)
 			       (gpg-files :maxlevel . 2)
 			       (org-agenda-files :maxlevel . 2)))
@@ -104,11 +104,11 @@
     (setq exportsdir "exports/")
     
     ;; Make sure we have an exports directory if we are within
-    ;; the plansdir. If not, create one.
-    ;; We want to do this only if we are in a subdir of plansdir
+    ;; the notesdir. If not, create one.
+    ;; We want to do this only if we are in a subdir of notesdir
     ;; as we do not want to litter our filesystem with exports dir!
     (when
-	(string-match-p plansdirbase curdirname)
+	(string-match-p notesdirbase curdirname)
         (make-directory (concat curdirname exportsdir) t))
     
     ;; Lets make sure the page margins are correct

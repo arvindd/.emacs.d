@@ -37,7 +37,7 @@
 (setq elpa-package-dir (concat emacshome "/.emacselpa/"))
 
 ;; Where you want to keep all the org-mode files
-(setq notesdir (concat emacshome "/.notes/content/"))
+(setq notesdir (concat emacshome "/.notes/"))
 
 ;; Optional custom settings, which become effective before
 ;; any other settings are loaded in. Having any settings
