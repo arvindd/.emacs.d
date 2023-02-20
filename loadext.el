@@ -12,8 +12,3 @@
 ;; (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
 ;; (add-hook 'c-mode-common-hook   'auto-make-header)
 
-;; Enable docker mode when a docker-file is opened.
-(require 'dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
-
-
