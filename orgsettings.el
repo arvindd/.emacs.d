@@ -162,6 +162,7 @@
 
     ;; Finally, on a new org-mode file, create the header
     ;; with some initial buffer variables.
+    (setq exportsdir "exports/")
     (setq make-header-hook '(make-org-header))
     (auto-make-header)
     
@@ -189,7 +190,7 @@
 	  "#+draft: true\n"
 	  "#+startup: indent\n"
 	  "#+startup: showall\n"
-	  "#+category: "(upcase curfilename) "\n"
+	  "#+category: "(downcase curfilename) "\n"
 	  "#+author: \n"
 	  "#+export_file_name: " exportsdir curfilename ".pdf\n\n")
   (setq return-to 10))
@@ -199,7 +200,6 @@
 (add-hook 'org-export-before-processing-hook
   (lambda (backend)
     (setq curdirname (file-name-directory buffer-file-name))
-    (setq exportsdir "exports/")
 
    ;; Base directory of notesdir (Eg: ".notes").
    ;; Note that notesdir is the complete path: "~/.notes".
