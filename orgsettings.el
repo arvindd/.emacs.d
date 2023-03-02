@@ -186,12 +186,13 @@
   (setq curfilename (file-name-nondirectory (file-name-sans-extension buffer-file-name)))
   (insert "#+title: \n"
 	  "#+date: " (format-time-string "%b %Y\n")
-	  "#+type: docs\n"
-	  "#+draft: true\n"
+	  "#+author: \n"	  
 	  "#+startup: indent\n"
 	  "#+startup: showall\n"
 	  "#+category: "(downcase curfilename) "\n"
-	  "#+author: \n"
+	  "#+tags: \n"
+	  "#+type: docs\n"
+	  "#+draft: true\n"	  
 	  "#+export_file_name: " exportsdir curfilename ".pdf\n\n")
   (setq return-to 10))
 
