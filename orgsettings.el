@@ -5,17 +5,6 @@
 
 (add-hook 'org-mode-hook
   (lambda ()
-    ;; Capture the current file name (without extension) and its directory in easy-to-access variables
-    ;; These will be used in many places below
-    (setq curfilename (file-name-nondirectory (file-name-sans-extension buffer-file-name)))
-    (setq curdirname (file-name-directory buffer-file-name))
-
-    ; Base directory of notesdir (Eg: ".notes"). Note that notesdir is the complete path: "~/.notes".
-    (setq notesdirbase
-	  (concat "/"
-		  (file-name-nondirectory (directory-file-name (expand-file-name notesdir)))
-		  "/"))
-
     ;; Make all files (except the encrupted gpg files) in the notesdir also as agenda files
     ;; The regex used here is pretty complex: so an explanation is necessary. Just so that
     ;; we remove the noise due to backslashes, here is the "non-backslashed" version:
@@ -100,64 +89,6 @@
     ;; Either the Key ID or set to nil to use symmetric encryption.
     (setq org-crypt-key nil)
 
-    ;; === BEGIN: PDF exports of org files ===
-    (setq exportsdir "exports/")
-    
-    ;; Make sure we have an exports directory if we are within
-    ;; the notesdir. If not, create one.
-    ;; We want to do this only if we are in a subdir of notesdir
-    ;; as we do not want to litter our filesystem with exports dir!
-    (when
-	(string-match-p notesdirbase curdirname)
-        (make-directory (concat curdirname exportsdir) t))
-    
-    ;; Lets make sure the page margins are correct
-    ;; This works especially for latex export (and hence pdf export too)
-    ;; Org-mode files can be exported to pdf with C-c C-e l p
-    (setq org-latex-packages-alist
-	  '(("margin=2.5cm" "geometry" t nil)))
-
-    ;; Default packages that we want to load for latex export.
-    ;; The default value of this variable does not add the
-    ;; "utf8" option for inputenc and this does not go
-    ;; well with the lualatex compiler we are using for
-    ;; latex / pdf exports
-    (setq org-latex-default-packages-alist
-	  '(("utf8" "inputenc" t ("pdflatex"))
-      ("T1" "fontenc" t ("pdflatex"))
-      ("" "graphicx" t nil)
-      ("" "grffile" t nil)
-      ("" "longtable" nil nil)
-      ("" "wrapfig" nil nil)
-      ("" "rotating" nil nil)
-      ("normalem" "ulem" t nil)
-      ("" "amsmath" t nil)
-      ("" "textcomp" t nil)
-      ("" "amssymb" t nil)
-      ("" "capt-of" nil nil)
-      ("" "hyperref" nil nil)))
-
-    ;; The settings below makes org-mode use lualatex for
-    ;; latex processing, so that unicode characters can also be
-    ;; used in our org files.
-    (setq lualatex-prog-options (concat "lualatex -shell-escape -interaction nonstopmode -output-directory " exportsdir " %f"))
-    (setq org-latex-pdf-process (list lualatex-prog-options lualatex-prog-options))
-
-    (setq luamagick '(luamagick :programs ("lualatex" "magick")
-				:description "pdf > png"
-				:message "you need to install lualatex and imagemagick."
-				:use-xcolor t
-				:image-input-type "pdf"
-				:image-output-type "png"
-				:image-size-adjust (1.0 . 1.0)
-				:latex-compiler ("lualatex -interaction nonstopmode -output-directory %o %f")
-				:image-converter ("magick convert -density %D -trim -antialias %f -quality 100 %O")))
-
-    (add-to-list 'org-preview-latex-process-alist luamagick)
-    (setq org-preview-latex-default-process 'luamagick)
-    
-    ;; ==== END: PDF Export ===
-    
     ;; Enable source code additions in org-mode using babel
     ;; active Babel languages
     (org-babel-do-load-languages
@@ -248,8 +179,10 @@
     (define-key org-mode-map(kbd "C-c c") 'org-capture)    
 ))
 
+;; Create a header for all new org-files created
 (defsubst make-org-header ()
   "Insert header in the orgmode"
+  (setq curfilename (file-name-nondirectory (file-name-sans-extension buffer-file-name)))
   (insert "#+title: \n"
 	  "#+date: " (format-time-string "%b %Y\n")
 	  "#+type: docs\n"
@@ -260,3 +193,72 @@
 	  "#+author: \n"
 	  "#+export_file_name: " exportsdir curfilename ".pdf\n\n")
   (setq return-to 10))
+
+
+;; Before exporting any latext, set some latex properties
+(add-hook 'org-export-before-processing-hook
+  (lambda (backend)
+    (setq curdirname (file-name-directory buffer-file-name))
+    (setq exportsdir "exports/")
+
+   ;; Base directory of notesdir (Eg: ".notes").
+   ;; Note that notesdir is the complete path: "~/.notes".
+    (setq notesdirbase
+	  (concat "/"
+		  (file-name-nondirectory
+		   (directory-file-name (expand-file-name notesdir)))
+		  "/"))
+
+    ;; Make sure we have an exports directory if we are within
+    ;; the notesdir. If not, create one.
+    ;; We want to do this only if we are in a subdir of notesdir
+    ;; as we do not want to litter our filesystem with exports dir!
+    (when
+	(string-match-p notesdirbase curdirname)
+        (make-directory (concat curdirname exportsdir) t))
+    
+    ;; Lets make sure the page margins are correct
+    ;; This works especially for latex export (and hence pdf export too)
+    ;; Org-mode files can be exported to pdf with C-c C-e l p
+    (setq org-latex-packages-alist
+	  '(("margin=2.5cm" "geometry" t nil)))
+
+    ;; Default packages that we want to load for latex export.
+    ;; The default value of this variable does not add the
+    ;; "utf8" option for inputenc and this does not go
+    ;; well with the lualatex compiler we are using for
+    ;; latex / pdf exports
+    (setq org-latex-default-packages-alist
+	  '(("utf8" "inputenc" t ("pdflatex"))
+      ("T1" "fontenc" t ("pdflatex"))
+      ("" "graphicx" t nil)
+      ("" "grffile" t nil)
+      ("" "longtable" nil nil)
+      ("" "wrapfig" nil nil)
+      ("" "rotating" nil nil)
+      ("normalem" "ulem" t nil)
+      ("" "amsmath" t nil)
+      ("" "textcomp" t nil)
+      ("" "amssymb" t nil)
+      ("" "capt-of" nil nil)
+      ("" "hyperref" nil nil)))
+
+    ;; The settings below makes org-mode use lualatex for
+    ;; latex processing, so that unicode characters can also be
+    ;; used in our org files.
+    (setq lualatex-prog-options (concat "lualatex -shell-escape -interaction nonstopmode -output-directory " exportsdir " %f"))
+    (setq org-latex-pdf-process (list lualatex-prog-options lualatex-prog-options))
+
+    (setq luamagick '(luamagick :programs ("lualatex" "magick")
+				:description "pdf > png"
+				:message "you need to install lualatex and imagemagick."
+				:use-xcolor t
+				:image-input-type "pdf"
+				:image-output-type "png"
+				:image-size-adjust (1.0 . 1.0)
+				:latex-compiler ("lualatex -interaction nonstopmode -output-directory %o %f")
+				:image-converter ("magick convert -density %D -trim -antialias %f -quality 100 %O")))
+
+    (add-to-list 'org-preview-latex-process-alist luamagick)
+    (setq org-preview-latex-default-process 'luamagick)
+))
