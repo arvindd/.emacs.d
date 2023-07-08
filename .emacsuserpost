@@ -9,13 +9,26 @@
         (unless (server-running-p) (server-start)))
 
 ;; Set calendar to european form (dd-mm-yy) - this overrides the default US form
-(calendar-set-date-style 'european)
+;; (calendar-set-date-style 'european)
 
 ;; Maximise window after it starts
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Override default theme here
-;; (load-theme 'tango-dark)
+;; (load-theme 'light-blue)
+
+;; For spellchecks, point to hunspell program
+;; Make sure your PATH contains the path to hunspell!
+;; (setq ispell-program-name "hunspell")
+;; (setq ispell-local-dictionary "en_GB")
+
+;; Make sure to automatically enable flyspell mode in all major modes
+;; (defun enable-flyspell-mode ()
+;;  "Enable flyspell-mode."
+;;  (flyspell-mode 1))
+
+;; (add-hook 'text-mode-hook 'enable-flyspell-mode)
+;; (add-hook 'prog-mode-hook 'enable-flyspell-mode)
 
 ;; Load all the usual babel language support
 ;; (org-babel-do-load-languages 'org-babel-load-languages

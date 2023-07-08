@@ -30,10 +30,10 @@
 ;; Let's set our default theme 
 ;; Since terminals are not very good in handling colours, we have a minimalistic 
 ;; dark theme for terminals. For graphic displays (such as X or Windows systems), 
-;; light-blue is pleasing eyes. Of course, this is opiniated, and hence can be
+;; tango-dark is pleasing eyes. Of course, this is opiniated, and hence can be
 ;; overridden in the .emacsuserpost file!
 (if (display-graphic-p)
-  (load-theme 'light-blue)
+  (load-theme 'tango-dark)
   (load-theme 'misterioso))
 
 ;; Customise where you want all the initialisation files go
