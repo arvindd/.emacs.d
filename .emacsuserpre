@@ -8,7 +8,6 @@
 
 ;; Add any packages that you want to automatically install if not found
 ;; Add these packages to the list auto-install-package-list
-(setq auto-install-package-list
- '(magit
-   csharp-mode)
+(setq auto-install-package-list 
+ '(magit)
 )
